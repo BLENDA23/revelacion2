@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Revelación para Papito 💙💖</title>
   <style>
     body {
@@ -11,7 +12,8 @@
       background-size: 600% 600%;
       animation: gradientBG 12s ease infinite;
       color: #fff;
-      padding: 50px;
+      padding: 30px 15px;
+      margin: 0;
       overflow-x: hidden;
     }
     @keyframes gradientBG {
@@ -20,31 +22,35 @@
       100% {background-position: 0% 50%;}
     }
     h1 {
-      font-size: 2.5em;
+      font-size: 5em;
       text-shadow: 2px 2px #000;
+      margin-bottom: 20px;
     }
     #mensaje {
-      margin: 30px 0;
-      font-size: 1.5em;
-      min-height: 80px;
+      margin: 80px 0;
+      font-size: 1.4em;
+      min-height: 100px;
+      line-height: 1.5em;
     }
     button {
       background: #ff7675;
       color: #fff;
       border: none;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 10px;
+      padding: 18px 40px;
+      font-size: 1.4em;
+      border-radius: 15px;
       cursor: pointer;
-      margin: 10px;
+      margin: 15px;
       transition: transform 0.2s;
+      width: 90%;
+      max-width: 320px;
     }
     button:hover {
       transform: scale(1.1);
       background: #d63031;
     }
     .final {
-      font-size: 2em;
+      font-size: 1.8em;
       color: #ffeaa7;
       text-shadow: 2px 2px 5px #000;
       animation: bounce 1s infinite;
@@ -55,7 +61,7 @@
     }
     #contador {
       font-size: 4em;
-      margin-top: 20px;
+      margin-top: 25px;
       font-weight: bold;
       display: none;
       animation: zoom 1s infinite;
@@ -139,7 +145,6 @@
         }
       });
     }
-
     function iniciarConfeti() {
       crearConfeti();
       setInterval(dibujarConfeti, 20);
