@@ -7,63 +7,74 @@
   <style>
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
-      text-align: center;
       background: linear-gradient(135deg, #74b9ff, #a29bfe, #55efc4, #fab1a0);
       background-size: 600% 600%;
       animation: gradientBG 12s ease infinite;
-      color: #fff;
-      padding: 30px 15px;
       margin: 0;
-      overflow-x: hidden;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
     @keyframes gradientBG {
       0% {background-position: 0% 50%;}
       50% {background-position: 100% 50%;}
       100% {background-position: 0% 50%;}
     }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 25px 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      color: #2d3436;
+    }
     h1 {
-      font-size: 5em;
-      text-shadow: 2px 2px #000;
-      margin-bottom: 20px;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #d63031;
     }
     #mensaje {
-      margin: 80px 0;
-      font-size: 1.4em;
+      margin: 20px 0;
+      font-size: 1.2em;
       min-height: 100px;
-      line-height: 1.5em;
+      line-height: 1.4em;
     }
     button {
       background: #ff7675;
       color: #fff;
       border: none;
-      padding: 18px 40px;
-      font-size: 1.4em;
+      padding: 15px 30px;
+      font-size: 1.2em;
       border-radius: 15px;
       cursor: pointer;
-      margin: 15px;
-      transition: transform 0.2s;
-      width: 90%;
-      max-width: 320px;
+      margin: 10px 0;
+      transition: transform 0.2s, background 0.2s;
+      width: 100%;
     }
     button:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
       background: #d63031;
     }
     .final {
-      font-size: 1.8em;
-      color: #ffeaa7;
-      text-shadow: 2px 2px 5px #000;
+      font-size: 1.4em;
+      color: #6c5ce7;
+      font-weight: bold;
       animation: bounce 1s infinite;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-8px); }
     }
     #contador {
-      font-size: 4em;
-      margin-top: 25px;
+      font-size: 3em;
+      margin-top: 15px;
       font-weight: bold;
       display: none;
+      color: #00b894;
       animation: zoom 1s infinite;
     }
     @keyframes zoom {
@@ -81,12 +92,14 @@
   </style>
 </head>
 <body>
-  <h1>💖 Hola Papito 💙</h1>
-  <div id="mensaje">
-    Mi mamita <b>Blenda</b> está emocionada en contarte si soy varón o mujer... ¿Quieres saber? 🤔
+  <div class="card">
+    <h1>💖 Hola Papito 💙</h1>
+    <div id="mensaje">
+      Mi mamita <b>Blenda</b> está emocionada en contarte si soy varón o mujer... ¿Quieres saber? 🤔
+    </div>
+    <button id="btn">👉 Sí 👈</button>
+    <div id="contador"></div>
   </div>
-  <button id="btn">👉 Sí 👈</button>
-  <div id="contador"></div>
   
   <audio id="music" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-buddy.mp3" type="audio/mpeg">
@@ -114,14 +127,13 @@
     // partículas para confeti
     const confettis = [];
     function crearConfeti() {
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < 150; i++) {
         confettis.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height - canvas.height,
-          r: Math.random() * 6 + 4,
-          d: Math.random() * 50 + 50,
-          color: `hsl(${Math.random()*360},100%,50%)`,
-          tilt: Math.floor(Math.random() * 10) - 10
+          r: Math.random() * 5 + 3,
+          d: Math.random() * 40 + 40,
+          color: `hsl(${Math.random()*360},100%,50%)`
         });
       }
     }
