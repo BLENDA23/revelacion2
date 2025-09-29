@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Revelación para Papito 💙💖</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #74b9ff, #a29bfe, #55efc4, #fab1a0);
+      background-size: 600% 600%;
+      animation: gradientBG 12s ease infinite;
+      color: #fff;
+      padding: 50px;
+      overflow-x: hidden;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    h1 {
+      font-size: 2.5em;
+      text-shadow: 2px 2px #000;
+    }
+    #mensaje {
+      margin: 30px 0;
+      font-size: 1.5em;
+      min-height: 80px;
+    }
+    button {
+      background: #ff7675;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background: #d63031;
+    }
+    .final {
+      font-size: 2em;
+      color: #ffeaa7;
+      text-shadow: 2px 2px 5px #000;
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    #contador {
+      font-size: 4em;
+      margin-top: 20px;
+      font-weight: bold;
+      display: none;
+      animation: zoom 1s infinite;
+    }
+    @keyframes zoom {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Hola Papito 💙</h1>
+  <div id="mensaje">
+    Mi mamita <b>Blenda</b> está emocionada en contarte si soy varón o mujer... ¿Quieres saber? 🤔
+  </div>
+  <button id="btn">👉 Sí 👈</button>
+  <div id="contador"></div>
+  
+  <audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-buddy.mp3" type="audio/mpeg">
+  </audio>
+
+  <canvas id="confetti"></canvas>
+
+  <script>
+    let paso = 0;
+    const btn = document.getElementById("btn");
+    const mensaje = document.getElementById("mensaje");
+    const music = document.getElementById("music");
+    const contador = document.getElementById("contador");
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+
+    // redimensionar canvas
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // partículas para confeti
+    const confettis = [];
+    function crearConfeti() {
+      for (let i = 0; i < 200; i++) {
+        confettis.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 50 + 50,
+          color: `hsl(${Math.random()*360},100%,50%)`,
+          tilt: Math.floor(Math.random() * 10) - 10
+        });
+      }
+    }
+    function dibujarConfeti() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      confettis.forEach(c => {
+        ctx.beginPath();
+        ctx.fillStyle = c.color;
+        ctx.ellipse(c.x, c.y, c.r, c.r/2, Math.PI/4, 0, 2*Math.PI);
+        ctx.fill();
+      });
+      moverConfeti();
+    }
+    function moverConfeti() {
+      confettis.forEach(c => {
+        c.y += c.d/50;
+        c.x += Math.sin(c.y * 0.05);
+        if (c.y > canvas.height) {
+          c.y = -10;
+          c.x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    function iniciarConfeti() {
+      crearConfeti();
+      setInterval(dibujarConfeti, 20);
+    }
+
+    btn.addEventListener("click", () => {
+      paso++;
+      if (paso === 1) {
+        music.play().catch(err => console.log("Autoplay bloqueado"));
+        mensaje.innerHTML = "Antes de saber... 💭 Promete que me vas a cuidar y ser el mejor papá del mundo 💕. ¿Aceptas?";
+        btn.textContent = "👉 Sí, acepto 👈";
+      } else if (paso === 2) {
+        mensaje.innerHTML = "Genial papito 😍 ¿Estás listo???";
+        btn.textContent = "👉 Siii 👈";
+      } else if (paso === 3) {
+        btn.style.display = "none";
+        let count = 3;
+        contador.style.display = "block";
+        contador.textContent = count;
+        const intervalo = setInterval(() => {
+          count--;
+          if (count > 0) {
+            contador.textContent = count;
+          } else {
+            clearInterval(intervalo);
+            contador.style.display = "none";
+            mensaje.innerHTML = "🤣 Bueno papito... sigue esperando la revelación 😜🎁🎁🎁";
+            mensaje.classList.add("final");
+            iniciarConfeti();
+          }
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>
